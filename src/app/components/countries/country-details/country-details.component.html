@@ -1,16 +1,20 @@
-<section>
-    <p>{{details.description}}</p>
+<section class="mt-5">
+    <!-- <p>{{details.description}}</p>
     <p>{{details.population}}</p>
-    <p>{{details.currency}}</p>
+    <p>{{details.currency}}</p> -->
 
     <div class="d-flex justify-content-end">
-        <button class="btn btn-info" (click)="goToAllCountries()">Ver todos los paises</button>
+        <button class="btn btn-secondary" (click)="goToAllCountries()">Ver todos los paises</button>
     </div>
 
-    <p class="h2" *ngIf="!barChartData.length || !lineChartData.length">Puedes seleccionar entre nacimientos del género masculino, femenino o ambos:</p>
+    <div class="d-flex justify-content-start" *ngIf="!isShowFilters">
+        <button class="btn btn-primary" (click)="resetCharts()">Regresar</button>
+    </div>
 
-    <div style="display: block" *ngIf="barChartData.length">
-        <canvas baseChart
+    <p class="h4" *ngIf="isShowFilters">Filtrar por: </p>
+
+    <div style="display: block" *ngIf="barChartData.length || !isShowFilters">
+        <canvas baseChart height="120%"
                 [datasets]="barChartData"
                 [labels]="barChartLabels"
                 [options]="barChartOptions"            
@@ -31,31 +35,8 @@
         </canvas>
     </div>
 
-    <bar-chart></bar-chart>
+    <!-- <bar-chart></bar-chart> -->
 
-    <div class="overlay">
-        <div id="intro" class="clear">
-            <article class="one_third first text-center well well-lg shadow-box center-block animated bounceInLeft">
-                <h3 class="heading">Masculino</h3>
-                <ul class="nospace">
-                    <h2><img src="../../../assets/images/men.png" class="img-responsive" alt="Card image cap"></h2>
-                </ul>
-                <p class="link"><a (click)="showChartMale()" style="cursor: pointer;">Ver detalle &raquo;</a></p>
-            </article>
-            <article class="one_third text-center well well-lg shadow-box center-block animated zoomIn">
-                <h3 class="heading">Femenino</h3>
-                <ul class="nospace">
-                    <h2><img src="../../../assets/images/woman.png" class="img-responsive" alt="Card image cap"></h2>
-                </ul>
-                <p class="link"><a (click)="showChartsFemale()" style="cursor: pointer;">Ver detalle &raquo;</a></p>
-            </article>
-            <article class="one_third text-center well well-lg shadow-box center-block animated bounceInRight">
-                <h3 class="heading">Ambos</h3>
-                <ul class="nospace">
-                    <h2><img src="../../../assets/images/ambos.png" class="img-responsive" alt="Card image cap"></h2>
-                </ul>
-                <p class="link"><a  (click)="showChartsOfBoth()" style="cursor: pointer;">Ver detalle &raquo;</a></p>
-            </article>
-        </div>
-    </div>
+    <filters [isShowFilters]="isShowFilters" (showChart)="onShowChart($event)"></filters>
+    
 </section>

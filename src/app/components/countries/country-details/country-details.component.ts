@@ -5,7 +5,6 @@ import { CatalogsService } from '../../../services/catalogs.service';
 @Component({
     selector: 'country-details',
     templateUrl: './country-details.component.html',
-    styleUrls: ['./country-details.component.css'],
     providers: [CatalogsService]
 })
 export class CountryDetailsComponent implements OnInit{
@@ -20,6 +19,7 @@ export class CountryDetailsComponent implements OnInit{
     lineChartLabels: any[];
     male: any[];
     female: any[];
+    isShowFilters: boolean;
 
     constructor(
         private router: Router,
@@ -31,6 +31,7 @@ export class CountryDetailsComponent implements OnInit{
             responsive: true
         };
 
+        this.isShowFilters = true;
         this.barChartLabels = [];
         this.barChartData = [];
         this.data = [];
@@ -48,58 +49,72 @@ export class CountryDetailsComponent implements OnInit{
             .subscribe(natality => this.natality = natality);
     }
 
+    onShowChart(gender: any){
+        if(gender === 'male')
+            this.showChartMale();
+
+        if(gender === 'female')
+            this.showChartFemale();
+
+        if(gender === 'both')
+            this.showChartsOfBoth();
+    }
+
+    showChartMale(){
+        this.resetCharts();
+        this.isShowFilters = false;
+        this.filterDataByGender('male');
+    }
+
+    showChartFemale(){
+        this.resetCharts();
+        this.isShowFilters = false;
+        this.filterDataByGender('female');
+    }
+
+    showChartsOfBoth(){
+        this.resetCharts();
+        this.isShowFilters = false;
+ 
+        this.lineChartData.push(this.natality.filter(element => element.gender === 'female').map(element => {
+            this.lineChartLabels.push(element.year.toString())
+            this.female.push(element.value)
+        }));
+ 
+        this.lineChartData.push(this.natality.filter(element => element.gender === 'male').map(element => {
+            this.male.push(element.value)
+        }));
+
+        this.lineChartData = [ this.female , this.male];
+     }
+
+    goToAllCountries(){
+        this.router.navigate(['../'], { relativeTo: this.activatedRoute})
+    }
+
     private filterDataByGender(gender: string){
         this.natality.filter(element => element.gender ===  gender).map(element => {
             this.barChartLabels.push(element.year.toString());
             this.data.push(element.value);                 
         });
         this.barChartData.push({ data: this.data, label: gender });
-    }
-
-    showChartsOfBoth(){
-       this.resetCharts();
-
-        this.lineChartData.push(this.natality.filter(element => element.gender === 'female').map(element => {
-            this.lineChartLabels.push(element.year.toString())
-            this.female.push(element.value)
-        }));
-
-        this.lineChartData.push(this.natality.filter(element => element.gender === 'male').map(element => {
-            this.male.push(element.value)
-        }));
-
-        this.lineChartData = [ this.female , this.male];
-    }
-
-    showChartMale(){
-        this.resetCharts();
-        this.filterDataByGender('male');
-    }
-
-    showChartsFemale(){
-        this.resetCharts();
-        this.filterDataByGender('female');
-    }
-
-    goToAllCountries(){
-        this.router.navigate(['../'], { relativeTo: this.activatedRoute})
+        console.log(this.barChartData)
     }
 
     private resetCharts(){
-        if(this.barChartData.length || this.lineChartData.length){
-            this.barChartLabels = [];
-            this.data = [];
-            this.barChartData = [];
-            this.lineChartData = [];
-            this.male = [];
-            this.female = [];
-            this.lineChartLabels = [];
-        }
+        this.isShowFilters = true;        
+        this.barChartLabels = [];
+        this.data = [];
+        this.barChartData = [];
+        this.lineChartData = [];
+        this.male = [];
+        this.female = [];
+        this.lineChartLabels = [];        
     }
 
     // events
     public chartClicked(e:any):void {
-        console.log(e);
+        console.log(e.active[0]._model);
     }
     
     public chartHovered(e:any):void {

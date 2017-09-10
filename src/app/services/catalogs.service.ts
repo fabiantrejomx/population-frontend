@@ -65,7 +65,7 @@ export class CatalogsService{
             {
                 'gender': 'female',
                 'year': 2007,
-                'value': 310
+                'value': 320
             },
             {
                 'gender': 'female',
