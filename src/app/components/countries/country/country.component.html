@@ -1,0 +1,11 @@
+<div class="card mr-4 mt-5" style="width: 15rem;">
+    <img class="card-img-top" src="http://lorempixel.com/200/200/" alt="Card image cap">
+    <div class="card-block">
+        <h4 class="card-title">{{country.name}}</h4>
+        <p class="card-text">Capital: {{country.capital}}</p>
+        <p class="card-text">Alias: {{country.alias}}</p>
+    </div>
+    <div class="card-block">
+        <button class="btn btn-info" type="button" (click)="goToDetails(country)">Ver mas información</button>
+    </div>
+</div>
