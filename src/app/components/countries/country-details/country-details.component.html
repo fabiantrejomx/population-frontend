@@ -26,7 +26,7 @@
         </canvas>
     </div>
 
-    <!-- <bar-chart></bar-chart> -->
+    <!-- <bar-chart [labels]="barChartLabels" [data]="data" *ngIf="data"></bar-chart> -->
 
     <filters [isShowFilters]="isShowFilters" (showChart)="onShowChart($event)"></filters>
     

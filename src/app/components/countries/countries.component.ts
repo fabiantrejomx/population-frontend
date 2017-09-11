@@ -16,8 +16,9 @@ export class CountriesComponent implements OnInit{
     ngOnInit(){
         this.isLoading = true;
         this.catalogsService.getCountries()
-        .finally(() => this.isLoading = false)
-        .subscribe(countries => this.countries = countries);
+        .subscribe(countries => {
+            this.isLoading = false;
+            this.countries = countries})
     }
 
 }

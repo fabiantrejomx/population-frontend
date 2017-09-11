@@ -58,24 +58,24 @@ export class CountryDetailsComponent implements OnInit{
             this.showChartsOfBoth();
     }
 
-    showChartMale(){
+    private showChartMale(){
         this.resetCharts();
         this.isShowFilters = false;
         this.filterDataByGender(1);
     }
 
-    showChartFemale(){
+    private showChartFemale(){
         this.resetCharts();
         this.isShowFilters = false;
         this.filterDataByGender(2);
     }
 
-    showChartsOfBoth(){
+    private showChartsOfBoth(){
         this.resetCharts();
         this.isShowFilters = false;
 
-        this.filterDataByGender(1);
         this.filterDataByGender(2);
+        this.filterDataByGender(1);
      }
 
     
@@ -83,7 +83,7 @@ export class CountryDetailsComponent implements OnInit{
         this.router.navigate(['../'], { relativeTo: this.activatedRoute})
     }
 
-    private filterDataByGender(gender: number){
+    private filterDataByGender(gender: any){
         let data = [];
         this.natality.sort((a, b) => a.year - b.year).filter(element => element.gender ===  gender).map(element => {
             if(!this.barChartLabels.find(e => e == element.year.toString()))
@@ -91,7 +91,7 @@ export class CountryDetailsComponent implements OnInit{
 
             data.push(element.value);                 
         });
-        this.barChartData.push({ data, label: gender });
+        this.barChartData.push({ data , label: gender = gender == 1 ? 'Masculino' : 'Femenino' });
         this.barChartLabels.sort();
     }
 

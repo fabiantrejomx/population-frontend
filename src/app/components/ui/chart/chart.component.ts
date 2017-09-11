@@ -29,14 +29,14 @@ export class ChartComponent implements OnInit{
     padding= 20
 
     private getDatasets(){
-        let dat = [
-            {data :  [100,90], label: 'Hombre' },
-            {data :  [100,200], label: 'Mujer' }
-        ]
+        // let dat = [
+        //     {data :  [100,90], label: 'Hombre' },
+        //     {data :  [100,200], label: 'Mujer' }
+        // ]
 
-        let da = dat.map((data: any, index:any) => {
-            console.log(Object.assign({}, data))
-        })
+        // let da = dat.map((data: any, index:any) => {
+        //     console.log(Object.assign({}, data))
+        // })
     }
 
 
