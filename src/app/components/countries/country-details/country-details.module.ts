@@ -6,6 +6,7 @@ import { ChartsModule } from 'ng2-charts-x';
 
 import { ChartModule } from '../../ui/chart/chart.module';
 import { FiltersModule } from '../filters/filters.module';
+import { CardHeaderComponent } from './card-header/card-header.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,7 @@ import { FiltersModule } from '../filters/filters.module';
         ChartModule,
         FiltersModule
     ],
-    declarations: [CountryDetailsComponent],
+    declarations: [CountryDetailsComponent, CardHeaderComponent],
     exports: [CountryDetailsComponent]
 })
 export class CountryDetailsModule{

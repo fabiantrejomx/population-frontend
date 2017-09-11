@@ -1,9 +1,11 @@
-<section class="mt-5">
-    <!-- <p>{{details.description}}</p>
-    <p>{{details.population}}</p>
-    <p>{{details.currency}}</p> -->
+<section class="mt-4">
 
-    <div class="d-flex justify-content-end">
+    <div class="alert alert-info" *ngIf="!country && !details">
+        <strong><i class="fa fa-spinner fa-spin"></i> Cargando...</strong>
+    </div>
+    <card-header *ngIf="country && details" [country]="country" [details]="details"></card-header>
+
+    <div class="d-flex justify-content-end mt-4">
         <button class="btn btn-secondary" (click)="goToAllCountries()">Ver todos los paises</button>
     </div>
 
@@ -21,17 +23,6 @@
                 [chartType]="'bar'"
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)">
-        </canvas>
-    </div>
-    
-    <div style="display: block" *ngIf="lineChartData.length">
-        <canvas baseChart #baseChart="base-chart"
-            [data]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [chartType]="'line'"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)">
         </canvas>
     </div>
 

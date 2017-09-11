@@ -1,4 +1,8 @@
 <h1 class="text-info mt-5">Países</h1>
-<section class="row">
+
+<div class="alert alert-info" *ngIf="isLoading">
+    <strong><i class="fa fa-spinner fa-spin"></i> Cargando...</strong>
+</div>
+<section class="row" *ngIf="!isLoading">
     <country class="col" [country]="country" *ngFor="let country of countries"></country>
 </section>

@@ -1,0 +1,8 @@
+{
+    "/population_admin": {
+      "target": "http://707991e8.ngrok.io",
+      "secure": false,
+      "changeOrigin": "true",
+      "pathRewrite": {"^/population_admin": ""}
+    }
+  }

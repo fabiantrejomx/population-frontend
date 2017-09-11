@@ -9,17 +9,14 @@ import { CatalogsService } from '../../../services/catalogs.service';
 })
 export class CountryDetailsComponent implements OnInit{
 
+    countryId: number;
     details: any;
-    natality: any[];
+    natality: any;
     barChartOptions: any;
-    barChartLabels: string[];
+    barChartLabels: any;
     barChartData: any[];
-    data: any[];
-    lineChartData: any[];
-    lineChartLabels: any[];
-    male: any[];
-    female: any[];
     isShowFilters: boolean;
+    country: any;
 
     constructor(
         private router: Router,
@@ -34,18 +31,19 @@ export class CountryDetailsComponent implements OnInit{
         this.isShowFilters = true;
         this.barChartLabels = [];
         this.barChartData = [];
-        this.data = [];
-        this.lineChartData = [];
-        this.lineChartLabels = [];
-        this.male = [];
-        this.female = [];
     }
 
     ngOnInit(){
-        this.catalogsService.getCountryDetails(this.activatedRoute.snapshot.params.id)
+
+        this.countryId = this.activatedRoute.snapshot.params.id;
+
+        this.catalogsService.getCountry(this.countryId)
+            .subscribe(country => this.country = country)
+
+        this.catalogsService.getCountryDetails(this.countryId)
             .subscribe(details => this.details = details);
 
-        this.catalogsService.getNatality(this.activatedRoute.snapshot.params.id)
+        this.catalogsService.getNatality(this.countryId)
             .subscribe(natality => this.natality = natality);
     }
 
@@ -63,53 +61,44 @@ export class CountryDetailsComponent implements OnInit{
     showChartMale(){
         this.resetCharts();
         this.isShowFilters = false;
-        this.filterDataByGender('male');
+        this.filterDataByGender(1);
     }
 
     showChartFemale(){
         this.resetCharts();
         this.isShowFilters = false;
-        this.filterDataByGender('female');
+        this.filterDataByGender(2);
     }
 
     showChartsOfBoth(){
         this.resetCharts();
         this.isShowFilters = false;
- 
-        this.lineChartData.push(this.natality.filter(element => element.gender === 'female').map(element => {
-            this.lineChartLabels.push(element.year.toString())
-            this.female.push(element.value)
-        }));
- 
-        this.lineChartData.push(this.natality.filter(element => element.gender === 'male').map(element => {
-            this.male.push(element.value)
-        }));
 
-        this.lineChartData = [ this.female , this.male];
+        this.filterDataByGender(1);
+        this.filterDataByGender(2);
      }
 
+    
     goToAllCountries(){
         this.router.navigate(['../'], { relativeTo: this.activatedRoute})
     }
 
-    private filterDataByGender(gender: string){
-        this.natality.filter(element => element.gender ===  gender).map(element => {
-            this.barChartLabels.push(element.year.toString());
-            this.data.push(element.value);                 
+    private filterDataByGender(gender: number){
+        let data = [];
+        this.natality.sort((a, b) => a.year - b.year).filter(element => element.gender ===  gender).map(element => {
+            if(!this.barChartLabels.find(e => e == element.year.toString()))
+                this.barChartLabels.push(element.year.toString());
+
+            data.push(element.value);                 
         });
-        this.barChartData.push({ data: this.data, label: gender });
-        console.log(this.barChartData)
+        this.barChartData.push({ data, label: gender });
+        this.barChartLabels.sort();
     }
 
     private resetCharts(){
         this.isShowFilters = true;        
         this.barChartLabels = [];
-        this.data = [];
-        this.barChartData = [];
-        this.lineChartData = [];
-        this.male = [];
-        this.female = [];
-        this.lineChartLabels = [];        
+        this.barChartData = [];      
     }
 
     // events

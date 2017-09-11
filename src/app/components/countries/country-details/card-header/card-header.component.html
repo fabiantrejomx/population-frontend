@@ -1,0 +1,23 @@
+<div class="card">
+
+  <div class="card-header alert alert-info">
+      <strong class="h3">{{country?.name}}</strong>
+    <div class="d-flex justify-content-end" *ngIf="!isEditing">
+        <button class="btn btn-inverse btn-sm" (click)="onEdit()"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar</button>
+    </div>
+  </div>
+  <div class="card-block">
+    <p class="card-text">Población: {{details?.population}}</p>
+    <p class="card-text">Moneda: {{details?.currency}}</p>
+    <div class="form-group" *ngIf="isEditing">
+      <form [formGroup]="form">
+          <textarea class="form-control" formControlName="description"></textarea>
+      </form>
+        <div class="d-flex justify-content-end mt-2">
+            <button class="btn btn-inverse btn-sm" (click)="isEditing = false;">Cancelar</button>
+            <button class="btn btn-success btn-sm ml-3" (click)="onSave(form.value.description)" [disabled]="!form.valid">Guardar</button>
+        </div>
+    </div>
+    <p class="card-text" *ngIf="!isEditing">{{details?.description}}</p>
+  </div>
+</div>

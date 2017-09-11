@@ -8,12 +8,16 @@ import { CatalogsService } from '../../services/catalogs.service';
 })
 export class CountriesComponent implements OnInit{
 
-    countries: any[];
+    countries: any;
+    isLoading: boolean;
 
     constructor(private catalogsService: CatalogsService){}
 
     ngOnInit(){
-        this.catalogsService.getCountries().subscribe(countries => this.countries = countries);
+        this.isLoading = true;
+        this.catalogsService.getCountries()
+        .finally(() => this.isLoading = false)
+        .subscribe(countries => this.countries = countries);
     }
 
 }
