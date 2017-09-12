@@ -1,28 +1,38 @@
-# BitBySec
+# Population administrator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0.
+Population admin es un sitio en el cual puedes consultar la información básica de diferentes países, como el tipo de moneda,
+presidente, y su descripción. Ademas podrás visualizar los datos de nacimientos ocurridos en el país seleccionado en
+unas graficas con la facilidad de realizar filtrado por sexo. Y poder actulizar unicamente la descripción del país.
+
+
+## Getting Started
+
+Estas instrucciones le ayudarán a obtener una copia del proyecto en funcionamiento en su máquina local para su desarrollo.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Correr `ng serve` or `npm start` para un servidor dev. Navegar a `http://localhost:4200/`. La aplicación se volverá a cargar automáticamente si cambia alguno de los archivos de origen
 
-## Code scaffolding
+### Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+Qué cosas necesitas para instalar el software y poder trabajar con el.
 
-## Build
+```
+* Node.js
+* Editor de codigo
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+### Installing
 
-## Running unit tests
+Una vez clonado el repositorio solo se tiene que exportar el proyecto en tu entorno de desarrollo, y iniciar el servidor.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Built With
 
-## Running end-to-end tests
+* [Angular 4](https://spring.io/docs) - The web framework
+* [Charts]
+* [Bootstrap 4](https://v4-alpha.getbootstrap.com/)
+* [Font Awesome](http://fontawesome.io/)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+## Authors
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* **Fabian Trejo Perez** - *Initial work* -
