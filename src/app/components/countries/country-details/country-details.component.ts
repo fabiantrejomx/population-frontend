@@ -103,7 +103,7 @@ export class CountryDetailsComponent implements OnInit{
 
     // events
     public chartClicked(e:any):void {
-        console.log(e.active[0]._model);
+        console.log(e);
     }
     
     public chartHovered(e:any):void {
