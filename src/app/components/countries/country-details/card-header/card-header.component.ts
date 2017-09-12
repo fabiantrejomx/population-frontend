@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup , FormBuilder, Validators } from '@angular/forms';
+import { CatalogsService } from '../../../../services/catalogs.service';
 
 @Component({
     selector: 'card-header',
@@ -11,9 +12,12 @@ export class CardHeaderComponent{
     @Input() details : any;
 
     form: FormGroup;
-    isEditing: boolean;
+    isShowForm: boolean;
+    isSaving: boolean;
 
-    constructor(private fb: FormBuilder){ 
+    constructor(
+        private catalogsService: CatalogsService,
+        private fb: FormBuilder){ 
         this.form = fb.group({
             description : ['' , Validators.required]
         })
@@ -21,12 +25,17 @@ export class CardHeaderComponent{
 
     onEdit(){
         this.form.controls.description.setValue(this.details.description)
-        this.isEditing = true;
+        this.isShowForm = true;
     }
 
-    onSave(description: any){
-        this.isEditing = false;
-        this.details.description = description;
+    onSave(value: any){
+        this.isSaving = true;
+        this.catalogsService.updateNatalityDescription(value, this.country.id)
+            .subscribe(response => {
+                this.isShowForm = false;
+                this.isSaving = false;
+                this.details.description = value.description;
+            })
     }
 
 

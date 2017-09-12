@@ -41,4 +41,8 @@ export class CatalogsService{
     getNatality(countryId: number){
         return this.http.get(this.url + '/countries/' + countryId + '/natality');
     }
+
+    updateNatalityDescription(description: any, countryId: any){
+        return this.http.put(this.url + '/countries/' + countryId + '/details', description);
+    }
 }

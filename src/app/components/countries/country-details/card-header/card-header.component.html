@@ -1,23 +1,31 @@
 <div class="card">
-
   <div class="card-header alert alert-info">
       <strong class="h3">{{country?.name}}</strong>
-    <div class="d-flex justify-content-end" *ngIf="!isEditing">
+    <div class="d-flex justify-content-end" *ngIf="!isShowForm">
         <button class="btn btn-inverse btn-sm" (click)="onEdit()"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar</button>
     </div>
   </div>
   <div class="card-block">
     <p class="card-text">Población: {{details?.population}}</p>
     <p class="card-text">Moneda: {{details?.currency}}</p>
-    <div class="form-group" *ngIf="isEditing">
+    <div class="form-group" *ngIf="isShowForm">
       <form [formGroup]="form">
-          <textarea class="form-control" formControlName="description"></textarea>
+        <div class="form-group" [ngClass]="{'has-danger': form.controls.description.errors?.required}">
+            <textarea class="form-control" formControlName="description"></textarea>
+            <div class="form-control-feedback" *ngIf="form.controls.description.errors?.required">Campo requerido*</div>
+        </div>          
       </form>
         <div class="d-flex justify-content-end mt-2">
-            <button class="btn btn-inverse btn-sm" (click)="isEditing = false;">Cancelar</button>
-            <button class="btn btn-success btn-sm ml-3" (click)="onSave(form.value.description)" [disabled]="!form.valid">Guardar</button>
+            <button class="btn btn-inverse btn-sm" (click)="isShowForm = false;">Cancelar</button>
+            <button class="btn btn-success btn-sm ml-3" (click)="onSave(form.value)" [disabled]="!form.valid || isSaving">
+              <span *ngIf="!isSaving">Guardar</span>
+              <span *ngIf="isSaving">
+                  <i class="fa fa-spinner fa-spin"></i>
+                  Guardando...
+              </span>
+            </button>
         </div>
     </div>
-    <p class="card-text" *ngIf="!isEditing">{{details?.description}}</p>
+    <p class="card-text" *ngIf="!isShowForm">{{details?.description}}</p>
   </div>
 </div>
